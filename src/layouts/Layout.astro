@@ -1,0 +1,89 @@
+---
+// src/layouts/Layout.astro
+import { ClientRouter } from 'astro:transitions'; // New import for smooth navigation
+import Header from '../components/layout/Header.astro'; 
+import Footer from '../components/layout/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Wally Contreras | Lab Sixteen" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&display=swap" media="print" onload="this.media='all'">		
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <Header /> 
+    
+    <main class="content-wrapper" transition:animate="initial">
+    <slot />
+  </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --brand-accent: #d75b42;
+    --brand-bg: #fdfaf9;
+    --text-main: #1a1a1a;
+    --text-muted: #666666;
+    --border-light: #f5f5f5;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    /* Prevents the page from 'jumping' horizontally when moving 
+       between a short page and a long page */
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--brand-bg);
+    color: var(--text-main);
+    font-family: 'Manrope', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .content-wrapper {
+    flex: 1 0 auto;
+    width: 100%;
+    display: block; /* Force block layout to prevent flex-child shrinking */
+  }
+
+  .page-container {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Global link reset to ensure no default underlines 
+     persist across transitions */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+</style>

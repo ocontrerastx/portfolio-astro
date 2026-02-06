@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experiences = [
+  {
+    date: "2025 — PRESENT",
+    role: "Founder & Lead Developer",
+    company: "Lab Sixteen",
+    description: "Building a software and web development business focused on the intersection of strategy, design, and technical execution."
+  },
+  {
+    date: "2021 — 2025",
+    role: "Software Engineer",
+    company: "Google",
+    description: "Developed front-end applications and refined user experiences for global-scale products."
+  }
+];
+---
+
+<Layout title="About | Wally Contreras">
+  <main class="container">
+    <section class="hero">
+      <div class="hero-text">
+        <span class="eyebrow">About Me</span>
+        <h1>Product-Minded <span class="accent">Developer</span> & UX Designer</h1>
+        <p>I'm Wally, a hybrid practitioner based in Austin. I build scalable front-end applications with a PM's eye for strategy and a designer's obsession with the user experience.</p>
+        <div class="actions">
+          <a href="/projects" class="btn-primary">View My Work</a>
+          <a href="/resume" class="btn-secondary">Download CV</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/wally-headshot.png" alt="Wally Contreras" />
+      </div>
+    </section>
+
+    <section class="experience-section">
+      <h2>Experience</h2>
+      <div class="experience-list">
+        {experiences.map(exp => (
+          <div class="exp-row">
+            <div class="exp-date">
+              <span class="date-badge">{exp.date}</span>
+            </div>
+            <div class="exp-info">
+              <h3>{exp.role}</h3>
+              <p class="company">{exp.company}</p>
+            </div>
+            <div class="exp-desc">
+              <p>{exp.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 10rem 1.5rem 5rem;
+  }
+
+  /* Hero Layout */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 8rem;
+  }
+
+  .eyebrow {
+    color: var(--brand-accent);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 11px;
+  }
+
+  h1 {
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin: 1.5rem 0 2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .accent { color: var(--brand-accent); }
+
+  .hero-text p {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    max-width: 32rem;
+  }
+
+  /* Buttons */
+  .actions { display: flex; gap: 1rem; margin-top: 2.5rem; }
+
+  .btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    padding: 0 2rem;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--brand-accent);
+    color: white;
+    box-shadow: 0 10px 20px rgba(215, 91, 66, 0.2);
+  }
+
+  .btn-secondary {
+    border: 1px solid #e5e5e5;
+    background: white;
+  }
+
+  /* Headshot */
+  .hero-image img {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.5s ease;
+  }
+
+  .hero-image img:hover { filter: grayscale(0%); }
+
+  /* Experience Rows */
+  .experience-section h2 { font-size: 2rem; font-weight: 900; margin-bottom: 3rem; }
+
+  .exp-row {
+    display: grid;
+    grid-template-columns: 2fr 4fr 6fr;
+    padding: 2.5rem 0;
+    border-top: 1px solid #f5f5f5;
+  }
+
+  .date-badge {
+    font-size: 10px;
+    font-weight: 900;
+    background: #f5f5f5;
+    padding: 0.4rem 0.8rem;
+    border-radius: 99px;
+    color: var(--text-muted);
+  }
+
+  .exp-info h3 { font-size: 1.25rem; font-weight: 900; }
+  .company { color: var(--brand-accent); font-weight: 900; font-size: 10px; text-transform: uppercase; margin-top: 0.5rem; letter-spacing: 0.1em; }
+  .exp-desc { color: var(--text-muted); font-size: 0.9375rem; }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .hero, .exp-row { grid-template-columns: 1fr; }
+    h1 { font-size: 3rem; }
+  }
+</style>

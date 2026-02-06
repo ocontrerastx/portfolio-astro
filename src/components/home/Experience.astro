@@ -1,0 +1,33 @@
+---
+// src/components/home/Experience.astro
+import { experiences } from "../../content/experience";
+import ExperienceRow from "../about/ExperienceRow.astro";
+---
+
+<section class="experience-section">
+  <div class="page-container">
+    <h2 class="section-title">Experience</h2>
+
+    <div class="experience-list">
+      {experiences.map((exp) => <ExperienceRow exp={exp} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-section {
+    padding-bottom: 10rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 3rem;
+    color: var(--text-main);
+  }
+
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

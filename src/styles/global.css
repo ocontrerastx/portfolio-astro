@@ -1,0 +1,144 @@
+/* --- 1. DESIGN TOKENS (Variables) --- */
+:root {
+  /* Brand Colors */
+  --brand-accent: #d75b42;
+  --brand-bg: #fdfaf9;
+
+  /* Neutral Palette */
+  --text-main: #1a1a1a;
+  --text-muted: #666666;
+  --border-light: #f5f5f5;
+  --white: #ffffff;
+
+  /* Spacing & Layout */
+  --container-max: 64rem; /* 1024px */
+  --header-height: 5rem; /* 80px */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Essential for padding/grid logic */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Improves scroll behavior and sets base font rendering */
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
+}
+
+body {
+  background-color: var(--brand-bg);
+  color: var(--text-main);
+  font-family:
+    "Manrope",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  font-display: swap;
+}
+
+/* --- 3. ELEMENT DEFAULTS --- */
+
+/* Global Link Cleanup: Kills blue/purple underlines and colors */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+/* Shared Container: Used in Layout.astro and Index.astro */
+.page-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Typography Defaults */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Button & Input Reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Accessibility: Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 4px;
+}
+
+/* .cta-link is a reusable class for any text-based action link */
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2rem;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 12px; /* Consistent 12px radius */
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+  border: 2px solid var(--text-main);
+}
+
+/* Primary: Solid Black/Dark */
+.cta-link.primary {
+  background-color: var(--text-main);
+  color: var(--brand-bg);
+}
+
+.cta-link.primary:hover {
+  background-color: var(--brand-accent);
+  border-color: var(--brand-accent);
+  transform: scale(1.02);
+}
+
+/* Secondary: Ghost/Outline */
+.cta-link.secondary {
+  background-color: transparent;
+  color: var(--text-main);
+  border-color: #e5e5e5;
+}
+
+.cta-link.secondary:hover {
+  border-color: var(--text-main);
+  transform: scale(1.02);
+}

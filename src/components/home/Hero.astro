@@ -1,0 +1,61 @@
+---
+// src/components/home/Hero.astro
+---
+
+<section class="hero">
+  <div class="page-container">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Product-Minded <br />
+        <span class="accent">Developer</span> & UX Designer
+      </h1>
+      <p class="hero-description">
+        I build scalable front-end applications with a PM’s eye for strategy and
+        a designer’s obsession with the user.
+      </p>
+      <div class="hero-actions">
+        <a href="/projects" class="cta-link primary"> View My Work </a>
+        <a href="mailto:hello@wally.contreras" class="cta-link secondary">
+          Let’s Talk
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 10rem;
+    padding-bottom: 5rem;
+  }
+
+  .hero-content {
+    max-width: 48rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+  }
+
+  .accent {
+    color: var(--brand-accent);
+  }
+
+  .hero-description {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 36rem;
+  }
+
+  .hero-actions {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2.5rem;
+  }
+</style>
