@@ -17,7 +17,7 @@ export const projects: Project[] = [
       "Creating native iOS and Android apps to help wholesale car buyers purchase vehicles",
     image:
       "https://cdn.dribbble.com/userupload/9341516/file/original-5c90e4bae90e9c42dcf2aaf0b71e03cd.png",
-    roles: ["UX", "PM"],
+    roles: ["UX", "PM", "DEV"],
     featured: true,
   },
   {

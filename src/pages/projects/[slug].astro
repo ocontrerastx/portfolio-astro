@@ -1,0 +1,234 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const projectEntries = await getCollection("projects");
+  return projectEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"projects">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { data } = entry;
+---
+
+<Layout title={`${data.title} | Osvaldo Contreras`}>
+  <article class="project-detail">
+    <header class="project-hero page-container">
+      <div class="hero-content">
+        <h1 class="project-title">{data.title}</h1>
+        <p class="project-tagline">{data.tagline}</p>
+      </div>
+
+      <div class="hero-visual">
+        <img src={data.heroImage} alt="" class="hero-img" loading="eager" />
+      </div>
+    </header>
+
+    <section class="project-meta page-container">
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="meta-label">Role</span>
+          <p>{data.role}</p>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Tools & Tech</span>
+          <p>{data.tech}</p>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Duration</span>
+          <p>{data.timeline}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="narrative-section page-container">
+      <div class="prose-content">
+        <Content />
+      </div>
+
+      {
+        data.impact && (
+          <div class="outcome-callout">
+            <span class="section-eyebrow">Impact</span>
+            <h2 class="section-title">Quantifying the Result</h2>
+            <div class="impact-stats">
+              <div class="stat-card featured">
+                <span class="stat-value">{data.impact.metric}</span>
+                <span class="stat-label">{data.impact.label}</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-value">50k+</span>
+                <span class="stat-label">User Interactions</span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .project-detail {
+    padding-bottom: 10rem;
+  }
+
+  /* Hero Section - Following your wide layout */
+  .project-hero {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+  .hero-content {
+    margin-bottom: 4rem;
+  }
+  .project-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+  }
+  .project-tagline {
+    font-size: 1.75rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    max-width: 54rem;
+  }
+  .hero-img {
+    width: 100%;
+    border-radius: 32px;
+    aspect-ratio: 21/9;
+    object-fit: cover;
+  }
+
+  /* Meta Grid */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    padding: 4rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 8rem;
+  }
+  .meta-label {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--brand-accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .meta-item p {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--text-main);
+  }
+
+  /* Narrative Content - No longer constricted to 48rem */
+  .prose-content :global(h2) {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-top: 8rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.03em;
+    color: var(--text-main);
+  }
+  .prose-content :global(h3) {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--brand-accent);
+    margin-top: 5rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.15em;
+  }
+  .prose-content :global(p) {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    max-width: 60rem;
+  } /* Slightly constricted p for readability, but H2/H3/Grids go wider */
+
+  /* Outcome Callout (The Breakout Style) */
+  .outcome-callout {
+    margin: 10rem 0;
+    padding: 8rem 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--brand-accent);
+    letter-spacing: 0.2em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 5rem;
+    letter-spacing: -0.03em;
+    color: var(--text-main);
+  }
+
+  .impact-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .stat-card {
+    background: #fcfcfc;
+    padding: 5rem 2rem;
+    border-radius: 32px;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+  }
+  .stat-card.featured {
+    background: #fff8f6;
+    border-color: #ffede8;
+  }
+  .stat-value {
+    display: block;
+    font-size: 6rem;
+    font-weight: 900;
+    color: var(--brand-accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.04em;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--text-main);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 992px) {
+    .meta-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .impact-stats {
+      grid-template-columns: 1fr;
+    }
+    .stat-value {
+      font-size: 4rem;
+    }
+    .project-title {
+      font-size: 3.5rem;
+    }
+  }
+</style>

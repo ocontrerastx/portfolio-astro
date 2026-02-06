@@ -1,0 +1,152 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/projects/ProjectCard.astro";
+
+const allProjects = await getCollection("projects");
+
+const filters = [
+  { label: "All Work", key: "ALL" },
+  { label: "Product", key: "PM" },
+  { label: "UX Design", key: "UX" },
+  { label: "Development", key: "DEV" },
+];
+---
+
+<Layout title="Projects | Osvaldo Contreras">
+  <main class="page-container projects-page">
+    <header class="page-header">
+      <h1 class="page-title">All Projects</h1>
+    </header>
+
+    <div class="filter-wrapper">
+      <nav class="segmented-control" aria-label="Project filter">
+        {
+          filters.map((filter) => (
+            <button class="filter-btn" data-category={filter.key} type="button">
+              {filter.label}
+            </button>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+      {
+        allProjects.map((project) => (
+          <div class="project-item" data-roles={project.data.roles.join(",")}>
+            <ProjectCard project={project} />
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<script>
+  function initFilters() {
+    const buttons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".project-item");
+    const defaultBtn = document.querySelector(
+      '.filter-btn[data-category="ALL"]',
+    );
+
+    if (!buttons.length) return;
+
+    buttons.forEach((b) => b.classList.remove("active"));
+    defaultBtn?.classList.add("active");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-category");
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        items.forEach((item) => {
+          const roles = item.getAttribute("data-roles") || "";
+          const htmlItem = item as HTMLElement;
+          if (filter === "ALL" || roles.includes(filter || "")) {
+            htmlItem.style.display = "block";
+          } else {
+            htmlItem.style.display = "none";
+          }
+        });
+      });
+    });
+  }
+
+  initFilters();
+  document.addEventListener("astro:after-swap", initFilters);
+</script>
+
+<style>
+  .projects-page {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+  .page-header {
+    margin-bottom: 3.5rem;
+    text-align: center;
+  }
+  .page-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+  }
+
+  .filter-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
+
+  /* Using your brand background for the container */
+  .segmented-control {
+    display: inline-flex;
+    background: #f1eeed; /* Slightly darker than brand-bg for contrast */
+    padding: 6px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Active Pill using your Brand Accent */
+  .filter-btn.active {
+    background: var(--brand-accent);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(215, 91, 66, 0.2); /* Using #d75b42 rgb values */
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    .segmented-control {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .filter-btn {
+      flex: 1;
+      white-space: nowrap;
+    }
+  }
+</style>

@@ -1,0 +1,239 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { experiences } from "../content/experience";
+---
+
+<Layout title="Resume | Wally Contreras">
+  <main class="page-container resume-page">
+    <header class="resume-header">
+      <h1 class="page-title">Resume</h1>
+
+      <a
+        href="https://drive.google.com/file/d/1KWI4tSW-c3RqdjmjVLaKsKU-Hh_2Tz7K/view?usp=sharing"
+        class="cta-link secondary download-btn"
+        target="_blank"
+        rel="noopener"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="btn-icon"
+        >
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+          ></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="12" y1="18" x2="12" y2="12"></line>
+          <polyline points="9 15 12 18 15 15"></polyline>
+        </svg>
+        <span>Download Resume</span>
+      </a>
+    </header>
+
+    <section class="resume-section">
+      <h2 class="section-label">Professional Summary</h2>
+      <p class="summary-text">
+        A data-driven Product Manager with a proven record of steering products
+        through the complete lifecycle in technology-driven environments. Expert
+        at translating complex business goals into detailed technical
+        requirements and user stories.
+      </p>
+    </section>
+
+    <section class="resume-section">
+      <h2 class="section-label">Professional Experience</h2>
+
+      {
+        experiences.map((exp) => (
+          <div class="resume-item">
+            <div class="resume-meta">
+              <span class="date-badge">{exp.date}</span>
+            </div>
+            <div class="resume-body">
+              <div class="role-header">
+                <h3>{exp.role}</h3>
+                <span class="company-name">{exp.company}</span>
+              </div>
+              {exp.bullets && (
+                <ul class="role-bullets">
+                  {exp.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="resume-section">
+      <h2 class="section-label">Education & Certifications</h2>
+      <div class="resume-body">
+        <div class="edu-group">
+          <h3 class="role-title">The University of Texas at Austin</h3>
+          <span class="company-name"
+            >BBA — Management Information Systems (MIS)</span
+          >
+        </div>
+        <div class="cert-group">
+          <p class="cert-text">
+            <strong>Frontend Developer Career Path</strong> — Scrimba
+          </p>
+          <p class="cert-text">
+            <strong>Certifications:</strong> Google AI Essentials, Google UX Design
+            Certificate, Certified Scrum Product Owner (CSPO)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="resume-section">
+      <h2 class="section-label">Projects</h2>
+      <div class="resume-body">
+        <p class="project-title-lite">
+          Chef Claude (AI Recipe App) & Van Life (Rental Website)
+        </p>
+        <p class="summary-text">
+          A collection of personal projects demonstrating proficiency in modern
+          frontend development.
+        </p>
+        <p class="summary-text">
+          <strong>Skills:</strong> React (State, Side Effects, React Router), API
+          Integration, JavaScript (ES6+), HTML/CSS.
+        </p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .resume-page {
+    padding: 8rem 2rem;
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn-icon {
+    margin-top: -1px;
+  }
+
+  .section-label {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    margin-top: 4rem;
+    display: block;
+    letter-spacing: -0.02em;
+    padding-bottom: 0.5rem;
+  }
+
+  .resume-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 3rem;
+    padding: 1.5rem 0;
+  }
+
+  .date-badge {
+    font-size: 9px;
+    font-weight: 900;
+    background: #f0eeed;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+  }
+
+  .role-header h3,
+  .role-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text-main);
+  }
+  .company-name {
+    color: var(--brand-accent);
+    font-weight: 900;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .role-bullets {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+    list-style-type: square;
+  }
+  .role-bullets li {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .summary-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-title-lite {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-group,
+  .cert-group {
+    margin-top: 1.5rem;
+  }
+  .cert-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 992px) {
+    .resume-page {
+      padding: 4rem 1.5rem;
+    }
+    .resume-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .resume-item {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+</style>

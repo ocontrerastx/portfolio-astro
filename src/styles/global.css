@@ -113,13 +113,18 @@ button {
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  border-radius: 12px; /* Consistent 12px radius */
-  transition: all 0.2s ease;
+  border-radius: 12px;
   text-decoration: none !important;
+  box-sizing: border-box; /* Prevents border from shifting text */
   border: 2px solid var(--text-main);
+  /* Transition only the colors for a clean fade */
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
-/* Primary: Solid Black/Dark */
+/* Primary: Solid */
 .cta-link.primary {
   background-color: var(--text-main);
   color: var(--brand-bg);
@@ -128,10 +133,10 @@ button {
 .cta-link.primary:hover {
   background-color: var(--brand-accent);
   border-color: var(--brand-accent);
-  transform: scale(1.02);
+  /* Removed transform: scale */
 }
 
-/* Secondary: Ghost/Outline */
+/* Secondary: Ghost */
 .cta-link.secondary {
   background-color: transparent;
   color: var(--text-main);
@@ -140,5 +145,6 @@ button {
 
 .cta-link.secondary:hover {
   border-color: var(--text-main);
-  transform: scale(1.02);
+  background-color: transparent; /* Ensures no fill color appears */
+  /* Removed transform: scale */
 }
